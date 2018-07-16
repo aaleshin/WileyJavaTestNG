@@ -3,6 +3,7 @@ package test.java;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import main.java.HomePage;
 import main.java.StudentPage;
 import org.openqa.selenium.By;
@@ -39,12 +40,15 @@ public class SuperTest {
 
         homePage.studentsLink.click();
         checkStudent(PageFactory.initElements(driver, StudentPage.class));
+
+        homePage.GoToEducation();
+
     }
 
     private void checkTopMenu(final HomePage page) {
         page.changeLocation.click();
 
-        Collection<WebElement> links = page.topMenu.findElements(By.cssSelector(".navigation-menu-items a"));
+        Collection<WebElement> links = driver.findElements(By.xpath("//*[@id=\"willey-navbar-collapse\"]/div/div/div/ul/li/a"));
 
         String[] titles = {"RESOURCES", "SUBJECTS", "ABOUT"};
 
@@ -53,47 +57,23 @@ public class SuperTest {
             WebElement el = ((List<WebElement>) links).get(i);
             Assert.assertEquals("a", el.getTagName());
             Assert.assertEquals(titles[i], el.getText());
-
         }
-        String text = "";
-        text.startsWith("Math");
-        text.endsWith("sds");
-        text.contains("dsds");
-
-//        WebElement el = ((List<WebElement>) links).get(0);
-//        Assert.assertEquals("a", el.getTagName());
-//        Assert.assertEquals("RESOURCES", el.getText());
-//
-//        el = ((List<WebElement>) links).get(1);
-//        Assert.assertEquals("a", el.getTagName());
-//        Assert.assertEquals("SUBJECTS", el.getText());
-//
-//        el = ((List<WebElement>) links).get(2);
-//        Assert.assertEquals("a", el.getTagName());
-//        Assert.assertEquals("ABOUT", el.getText());
-
-//        Assert.assertEquals("a", page.resourcesLink.getTagName());
-//        Assert.assertEquals("#", page.resourcesLink.getAttribute("href"));
-//        Assert.assertEquals("RESOURCES", page.resourcesLink.getText());
-//
-//        Assert.assertEquals("SUBJECTS", page.subjectsLink.getText());
-//        Assert.assertEquals("ABOUT", page.aboutLink.getText());
     }
 
     private void checkResources(final HomePage page) {
         page.resourcesLink.click();
-        Assert.assertEquals("AUTHORS", page.authorsLink.getText());
-        Assert.assertEquals("CORPORATIONS", page.corporationsLink.getText());
-        Assert.assertEquals("INSTITUTIONS", page.institutionsLink.getText());
-        Assert.assertEquals("INSTRUCTORS", page.instructorsLink.getText());
-        Assert.assertEquals("LIBRARIANS", page.librariansLink.getText());
-        Assert.assertEquals("PROFESSIONALS", page.proffesionalsLink.getText());
-        Assert.assertEquals("RESEARCHERS", page.researcherssLink.getText());
-        Assert.assertEquals("RESELLERS", page.resellersLink.getText());
-        Assert.assertEquals("SOCIETIES", page.societiessLink.getText());
-        Assert.assertEquals("STUDENTS", page.studentsLink.getText());
-//        page.studentsLink.getAttribute("href");
 
+        Collection<WebElement> resourceslinks = driver.findElements(By.xpath("//*[@id=\"navigationNode_00000RS2\"]/div/h3/a"));
+
+        String[] titles = {"AUTHORS", "CORPORATIONS", "INSTITUTIONS", "INSTRUCTORS", "LIBRARIANS", "PROFESSIONALS", "RESEARCHERS", "RESELLERS", "SOCIETIES", "STUDENTS"};
+
+        Assert.assertEquals(10, resourceslinks.size());
+        Assert.assertEquals(titles.length, resourceslinks.size());
+        for (int i = 0; i < resourceslinks.size(); ++i) {
+            WebElement e2 = ((List<WebElement>) resourceslinks).get(i);
+            Assert.assertEquals("a", e2.getTagName());
+            Assert.assertEquals(titles[i], e2.getText());
+        }
     }
 
     private void checkStudent(final StudentPage page) {
@@ -101,8 +81,13 @@ public class SuperTest {
         Assert.assertEquals("https://www.wiley.com/en-ru/students", url);
         Assert.assertEquals("Students | Wiley", driver.getTitle());
         Assert.assertTrue(page.isLinkPresent(wiley));
-
+        Assert.assertEquals("http://wileyplus.wiley.com/", page.williyPlusLink.getAttribute("href"));
     }
+
+    //        String text = "";
+//        text.startsWith("Math");
+//        text.endsWith("sds");
+//        text.contains("dsds");
 
     @AfterClass
     public void tearDown() throws Exception {

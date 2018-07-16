@@ -3,9 +3,12 @@ package main.java;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class StudentPage {
     private final WebDriver driver;
+
     public StudentPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -22,4 +25,9 @@ public class StudentPage {
     public boolean isLinkPresent(String text) {
         return isElementPresent(By.linkText(text));
     }
+
+
+    @FindBy(xpath = "/html/body/main/div[2]/div/div[1]/div[2]/article/div/p[5]/span/a")
+    public WebElement williyPlusLink;
+
 }
