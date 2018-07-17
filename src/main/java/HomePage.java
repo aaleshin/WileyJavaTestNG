@@ -3,12 +3,10 @@ package main.java;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+
 public class HomePage {
     @FindBy(css = "button.large.button-dark-gray")
     public WebElement changeLocation;
-
-//    @FindBy(xpath = "//*[@id=\"willey-navbar-collapse\"]/div/div/div/ul/li")
-//    public WebElement topMenu;
 
     @FindBy(xpath = "//*[@id=\"willey-navbar-collapse\"]/div/div/div/ul/li[1]/a")
     public WebElement resourcesLink;
@@ -25,8 +23,11 @@ public class HomePage {
     @FindBy(xpath = "//*[@id=\"navigationNode_00000RS5\"]/div[2]/h3/ul/li[2]/a")
     public WebElement educationLink;
 
+    @FindBy(css = "#willey-navbar-collapse > div > div > div > div > div")
+    public WebElement logo;
+
+
     public void GoToEducation() {
-        subjectsLink.click();
         elLink.click();
         educationLink.click();
     }

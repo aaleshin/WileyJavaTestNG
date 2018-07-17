@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -26,7 +27,7 @@ public class SuperTest {
 //    Before starting the test, copy chromedriver from http://www.seleniumhq.org/download/ and enter correct PATH.!!
         System.setProperty("webdriver.chrome.driver", "D:\\downloads\\avtotests\\chromedriver.exe");
         driver = new ChromeDriver();
-        baseUrl = " http://www.wiley.com/WileyCDA/";
+        baseUrl = "http://www.wiley.com/WileyCDA/";
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
@@ -41,7 +42,13 @@ public class SuperTest {
         homePage.studentsLink.click();
         checkStudent(PageFactory.initElements(driver, StudentPage.class));
 
+        Actions actions = new Actions(driver);
+        actions.moveToElement(homePage.subjectsLink).build().perform();
         homePage.GoToEducation();
+
+        checkEducation();
+        homePage.logo.click();
+        CheckHomePage();
 
     }
 
@@ -63,16 +70,16 @@ public class SuperTest {
     private void checkResources(final HomePage page) {
         page.resourcesLink.click();
 
-        Collection<WebElement> resourceslinks = driver.findElements(By.xpath("//*[@id=\"navigationNode_00000RS2\"]/div/h3/a"));
+        Collection<WebElement> resourcesLinks = driver.findElements(By.xpath("//*[@id=\"navigationNode_00000RS2\"]/div/h3/a"));
 
-        String[] titles = {"AUTHORS", "CORPORATIONS", "INSTITUTIONS", "INSTRUCTORS", "LIBRARIANS", "PROFESSIONALS", "RESEARCHERS", "RESELLERS", "SOCIETIES", "STUDENTS"};
+        String[] resourceTitles = {"AUTHORS", "CORPORATIONS", "INSTITUTIONS", "INSTRUCTORS", "LIBRARIANS", "PROFESSIONALS", "RESEARCHERS", "RESELLERS", "SOCIETIES", "STUDENTS"};
 
-        Assert.assertEquals(10, resourceslinks.size());
-        Assert.assertEquals(titles.length, resourceslinks.size());
-        for (int i = 0; i < resourceslinks.size(); ++i) {
-            WebElement e2 = ((List<WebElement>) resourceslinks).get(i);
+        Assert.assertEquals(10, resourcesLinks.size());
+        Assert.assertEquals(resourceTitles.length, resourcesLinks.size());
+        for (int i = 0; i < resourcesLinks.size(); ++i) {
+            WebElement e2 = ((List<WebElement>) resourcesLinks).get(i);
             Assert.assertEquals("a", e2.getTagName());
-            Assert.assertEquals(titles[i], e2.getText());
+            Assert.assertEquals(resourceTitles[i], e2.getText());
         }
     }
 
@@ -84,6 +91,25 @@ public class SuperTest {
         Assert.assertEquals("http://wileyplus.wiley.com/", page.williyPlusLink.getAttribute("href"));
     }
 
+    private void checkEducation() {
+        Assert.assertEquals("Education | Subjects | Wiley", driver.getTitle());
+        Collection<WebElement> educationLinks = driver.findElements(By.xpath("/html/body/main/div[3]/div/div/div[3]/div[1]/ul/li/a"));
+
+        String[] educationTitles = {"Information & Library Science", "Education & Public Policy", "K-12 General", "Higher Education General", "Vocational Technology", "Conflict Resolution & Mediation (School settings)", "Curriculum Tools- General", "Special Educational Needs", "Theory of Education", "Education Special Topics", "Educational Research & Statistics", "Literacy & Reading", "Classroom Management"};
+
+        Assert.assertEquals(13, educationLinks.size());
+        Assert.assertEquals(educationTitles.length, educationLinks.size());
+        for (int i = 0; i < educationLinks.size(); ++i) {
+            WebElement e2 = ((List<WebElement>) educationLinks).get(i);
+            Assert.assertEquals("a", e2.getTagName());
+            Assert.assertEquals(educationTitles[i], e2.getText());
+        }
+    }
+
+    public void CheckHomePage() {
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals("https://www.wiley.com/en-ru", url);
+    }
     //        String text = "";
 //        text.startsWith("Math");
 //        text.endsWith("sds");
