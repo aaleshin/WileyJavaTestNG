@@ -18,17 +18,35 @@ public class HomePage {
     public WebElement studentsLink;
 
     @FindBy(xpath = "//*[@id=\"navigationNode_00000RS5\"]/div[2]/h3/a")
-    public WebElement elLink;
+    private WebElement elLink;
 
     @FindBy(xpath = "//*[@id=\"navigationNode_00000RS5\"]/div[2]/h3/ul/li[2]/a")
-    public WebElement educationLink;
+    private WebElement educationLink;
 
     @FindBy(css = "#willey-navbar-collapse > div > div > div > div > div")
     public WebElement logo;
+
+    @FindBy(css = "div.input-group > span > button")
+    public WebElement searchButton;
+
+    @FindBy(id = "js-site-search-input")
+    public WebElement searchInput;
+
+    @FindBy(xpath = "//div[contains(@class,'input-group')]/following-sibling::div")
+    public WebElement nextDiv;
+
+    @FindBy(css = "div.search-related-content")
+    public WebElement relateContent;
+
+//    @FindBy(css = "div.search-related-content > section > div.related-content-products")
+    @FindBy(css = "div.product-image.ui-menu-item-wrapper > a")
+    public WebElement productContent;
+
 
 
     public void GoToEducation() {
         elLink.click();
         educationLink.click();
+
     }
 }
