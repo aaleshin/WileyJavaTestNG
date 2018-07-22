@@ -26,7 +26,7 @@ public class SuperTest {
     private static final String wiley = "WileyPLUS";
 
     @BeforeClass
-    public void setUp() throws Exception {
+    public void setUp() {
 //    Before starting the test, copy chromedriver from http://www.seleniumhq.org/download/ and enter correct PATH.!!
         System.setProperty("webdriver.chrome.driver", "D:\\downloads\\avtotests\\chromedriver.exe");
         driver = new ChromeDriver();
@@ -36,7 +36,7 @@ public class SuperTest {
     }
 
     @Test
-    public void wileyTest() throws Exception {
+    public void wileyTest() {
         driver.get(baseUrl);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         checkTopMenu(homePage);
@@ -177,7 +177,6 @@ public class SuperTest {
 
         for (int i = 0; i < items.size(); ++i) {
             WebElement item = ((List<WebElement>) items).get(i);
-            WebElement title = item.findElement(By.cssSelector(".product-content h3.product-title > a"));
             Collection<WebElement> cartButton = item.findElements(By.cssSelector(".table-row-content button[type=\"submit\"]"));
 
             String text = item.getText();

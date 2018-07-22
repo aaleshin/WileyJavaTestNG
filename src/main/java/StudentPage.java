@@ -13,7 +13,7 @@ public class StudentPage {
         this.driver = driver;
     }
 
-    public boolean isElementPresent(By by) {
+    private boolean isElementPresent(By by) {
         try {
             driver.findElement(by);
             return true;

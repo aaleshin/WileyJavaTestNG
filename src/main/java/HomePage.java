@@ -35,14 +35,6 @@ public class HomePage {
     @FindBy(xpath = "//div[contains(@class,'input-group')]/following-sibling::div")
     public WebElement nextDiv;
 
-    @FindBy(css = "div.search-related-content")
-    public WebElement relateContent;
-
-//    @FindBy(css = "div.search-related-content > section > div.related-content-products")
-    @FindBy(css = "div.product-image.ui-menu-item-wrapper > a")
-    public WebElement productContent;
-
-
 
     public void GoToEducation() {
         elLink.click();
