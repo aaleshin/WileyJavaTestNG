@@ -14,7 +14,7 @@ public class HomePage {
     @FindBy(xpath = "//*[@id=\"willey-navbar-collapse\"]/div/div/div/ul/li[2]/a")
     public WebElement subjectsLink;
 
-    @FindBy(xpath = "//*[@id=\"navigationNode_00000RS2\"]/div[10]/h3/a")
+    @FindBy(xpath = "//*[@id=\"navigationNode_00000RS2\"]/div[11]/h3/a")
     public WebElement studentsLink;
 
     @FindBy(xpath = "//*[@id=\"navigationNode_00000RS5\"]/div[2]/h3/a")

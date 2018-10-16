@@ -53,12 +53,9 @@ public class SuperTest {
         checkEducation();
         homePage.logo.click();
         checkHomePage();
- /* 6 task contains  bug: "6.	Do not enter anything in the search input and press search button
-                            -	Nothing happens, home page is still displayed"
-    But if I click on search button - actual result is new webpage- https://www.wiley.com/en-ru/search?pq=%7Crelevance    */
         homePage.searchButton.click();
-        checkEmptySearchPage();
-        homePage.logo.click();
+        checkHomePage();
+
         checkFollowingWindows(PageFactory.initElements(driver, HomePage.class));
         homePage.searchButton.click();
         checkMathFilter(PageFactory.initElements(driver, HomePage.class));
@@ -84,10 +81,10 @@ public class SuperTest {
                 .until(ExpectedConditions.visibilityOf(page.resourcesLink));
         Collection<WebElement> resourcesLinks = driver.findElements(By.xpath("//*[@id=\"navigationNode_00000RS2\"]/div/h3/a"));
 
-        String[] resourceTitles = {"AUTHORS", "CORPORATIONS", "INSTITUTIONS", "INSTRUCTORS", "LIBRARIANS", "PROFESSIONALS", "RESEARCHERS", "RESELLERS", "SOCIETIES", "STUDENTS"};
+        String[] resourceTitles = {"AUTHORS", "CORPORATIONS", "INSTITUTIONS", "INSTRUCTORS", "JOURNALISTS", "LIBRARIANS", "PROFESSIONALS", "RESEARCHERS", "RESELLERS", "SOCIETIES", "STUDENTS"};
 
 
-        Assert.assertEquals(10, resourcesLinks.size());
+        Assert.assertEquals(11, resourcesLinks.size());
         Assert.assertEquals(resourceTitles.length, resourcesLinks.size());
         for (int i = 0; i < resourcesLinks.size(); ++i) {
             WebElement e2 = ((List<WebElement>) resourcesLinks).get(i);
@@ -122,11 +119,6 @@ public class SuperTest {
     private void checkHomePage() {
         String url = driver.getCurrentUrl();
         Assert.assertEquals("https://www.wiley.com/en-ru", url);
-    }
-
-    private void checkEmptySearchPage() {
-        String url = driver.getCurrentUrl();
-        Assert.assertEquals("https://www.wiley.com/en-ru/search?pq=%7Crelevance", url);
     }
 
     private void checkFollowingWindows(final HomePage page) {
