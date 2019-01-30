@@ -30,4 +30,11 @@ public class StudentPage {
     @FindBy(xpath = "/html/body/main/div[2]/div/div[1]/div[2]/article/div/p[5]/span/a")
     public WebElement williyPlusLink;
 
+    @FindBy(xpath = "//*[@id=\"main-header-container\"]/div/div[1]/div/div/div/a")
+    public WebElement logo;
+
+    public boolean isLogoPresent() {
+        return logo.isDisplayed();
+    }
+
 }

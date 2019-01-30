@@ -23,12 +23,11 @@ import org.testng.annotations.Test;
 public class SuperTest {
     private WebDriver driver;
     private String baseUrl;
-    private static final String wiley = "WileyPLUS";
 
     @BeforeClass
     public void setUp() {
 //    Before starting the test, copy chromedriver from http://www.seleniumhq.org/download/ and enter correct PATH.!!
-        System.setProperty("webdriver.chrome.driver", "D:\\downloads\\avtotests\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\thumbuser\\Desktop\\DONUTS\\chromedriver.exe");
         driver = new ChromeDriver();
         baseUrl = "http://www.wiley.com/WileyCDA/";
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -64,9 +63,9 @@ public class SuperTest {
     private void checkTopMenu(final HomePage page) {
         page.changeLocation.click();
 
-        Collection<WebElement> links = driver.findElements(By.xpath("//*[@id=\"willey-navbar-collapse\"]/div/div/div/ul/li/a"));
+        Collection<WebElement> links = driver.findElements(By.xpath("//*[@id=\"main-header-navbar\"]/ul[1]/li/a"));
 
-        String[] titles = {"RESOURCES", "SUBJECTS", "ABOUT"};
+        String[] titles = {"WHO WE SERVE", "SUBJECTS", "ABOUT"};
         Assert.assertEquals(titles.length, links.size());
         for (int i = 0; i < links.size(); ++i) {
             WebElement el = ((List<WebElement>) links).get(i);
@@ -79,12 +78,14 @@ public class SuperTest {
         page.resourcesLink.click();
         new WebDriverWait(driver, 10)
                 .until(ExpectedConditions.visibilityOf(page.resourcesLink));
-        Collection<WebElement> resourcesLinks = driver.findElements(By.xpath("//*[@id=\"navigationNode_00000RS2\"]/div/h3/a"));
+        Collection<WebElement> resourcesLinks = driver.findElements(By.xpath("//*[@id=\"Level1NavNode1\"]/ul/li/a"));
 
-        String[] resourceTitles = {"AUTHORS", "CORPORATIONS", "INSTITUTIONS", "INSTRUCTORS", "JOURNALISTS", "LIBRARIANS", "PROFESSIONALS", "RESEARCHERS", "RESELLERS", "SOCIETIES", "STUDENTS"};
+        String[] resourceTitles = {"Students", "Instructors", "Book Authors", "Professionals",
+                "Researchers", "Institutions", "Librarians", "Corporations", "Societies",
+                "Journal Editors", "Journalists", "Government"};
 
 
-        Assert.assertEquals(11, resourcesLinks.size());
+        Assert.assertEquals( resourcesLinks.size(),12);
         Assert.assertEquals(resourceTitles.length, resourcesLinks.size());
         for (int i = 0; i < resourcesLinks.size(); ++i) {
             WebElement e2 = ((List<WebElement>) resourcesLinks).get(i);
@@ -97,8 +98,8 @@ public class SuperTest {
         String url = driver.getCurrentUrl();
         Assert.assertEquals("https://www.wiley.com/en-ru/students", url);
         Assert.assertTrue(driver.getTitle().startsWith("Students"));
-        Assert.assertTrue(page.isLinkPresent(wiley));
-        Assert.assertEquals("http://wileyplus.wiley.com/", page.williyPlusLink.getAttribute("href"));
+        Assert.assertTrue(page.isLogoPresent());
+        Assert.assertEquals(page.logo.getAttribute("href"), "https://www.wiley.com/en-ru/" );
     }
 
     private void checkEducation() {
